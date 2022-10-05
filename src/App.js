@@ -21,7 +21,7 @@ function App() {
 						element={<Explore />}
 					/>
 					<Route
-						path='/forgotpassword'
+						path='/forgot-password'
 						element={<ForgotPassword />}
 					/>
 					<Route
