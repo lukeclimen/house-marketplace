@@ -8,6 +8,11 @@ import {
 	updateProfile,
 } from "firebase/auth";
 import { db } from "../firebase.config";
+import {
+	doc,
+	setDoc,
+	serverTimestamp,
+} from "firebase/firestore";
 
 function SignUp() {
 	// States
@@ -47,6 +52,16 @@ function SignUp() {
 			updateProfile(auth.currentUser, {
 				displayName: name,
 			});
+
+			// Add new user to database
+			const formDataCopy = { ...formData }; //Preserving our form data state by copying it
+			delete formDataCopy.password; //Don't want to submit the password to the database
+			formDataCopy.timestamp = serverTimestamp();
+
+			await setDoc(
+				doc(db, "users", user.uid),
+				formDataCopy
+			); //Adding an item to the db with the uid and formDataCopy as the payload
 
 			navigate("/");
 		} catch (error) {
