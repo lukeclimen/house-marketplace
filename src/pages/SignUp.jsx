@@ -2,21 +2,56 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visiblityIcon from "../assets/svg/visibilityIcon.svg";
+import {
+	getAuth,
+	createUserWithEmailAndPassword,
+	updateProfile,
+} from "firebase/auth";
+import { db } from "../firebase.config";
 
 function SignUp() {
+	// States
 	const [showPassword, setShowPassword] = useState(false);
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
 		password: "",
 	});
+	// Destructuring formData properties
 	const { name, email, password } = formData;
 	const navigate = useNavigate();
+
+	// Function for reading in text input
 	const onChange = (event) => {
 		setFormData((prevState) => ({
 			...prevState,
 			[event.target.id]: event.target.value,
 		}));
+	};
+
+	// Function to handle form submission
+	const onSubmit = async (event) => {
+		event.preventDefault();
+		try {
+			// Authentication
+			const auth = getAuth();
+
+			const userCredential =
+				await createUserWithEmailAndPassword(
+					auth,
+					email,
+					password
+				);
+
+			const user = userCredential.user;
+			updateProfile(auth.currentUser, {
+				displayName: name,
+			});
+
+			navigate("/");
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
@@ -26,7 +61,7 @@ function SignUp() {
 					<p className='pageHeader'>Welcome!</p>
 				</header>
 				<main>
-					<form>
+					<form onSubmit={onSubmit}>
 						<input
 							type='text'
 							className='nameInput'
@@ -68,6 +103,7 @@ function SignUp() {
 								}
 							/>
 						</div>
+						{/* Forgot Password link */}
 						<Link
 							to='/forgot-password'
 							className='
@@ -75,15 +111,16 @@ function SignUp() {
 						>
 							Forgot Password?
 						</Link>
+						{/* Sign up Label and Button */}
 						<div className='signUpBar'>
 							<p className='signUpText'>
 								Sign Up
 							</p>
 							<button className='signUpButton'>
 								<ArrowRightIcon
-									fill='#fff'
-									width={36}
-									height={36}
+									fill='#ffffff'
+									width='34px'
+									height='34px'
 								/>
 							</button>
 						</div>
