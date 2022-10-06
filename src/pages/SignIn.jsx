@@ -2,20 +2,51 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visiblityIcon from "../assets/svg/visibilityIcon.svg";
+import {
+	getAuth,
+	signInWithEmailAndPassword,
+} from "firebase/auth";
+import { toast } from "react-toastify";
 
 function SignIn() {
+	// States
 	const [showPassword, setShowPassword] = useState(false);
 	const [formData, setFormData] = useState({
 		email: "",
 		password: "",
 	});
+
+	// Destructuring formData properties
 	const { email, password } = formData;
 	const navigate = useNavigate();
+
+	// Function for reading in text input
 	const onChange = (event) => {
 		setFormData((prevState) => ({
 			...prevState,
 			[event.target.id]: event.target.value,
 		}));
+	};
+
+	// Function to handle form submission
+	const onSubmit = async (event) => {
+		event.preventDefault();
+		try {
+			const auth = getAuth();
+			const userCredential =
+				await signInWithEmailAndPassword(
+					auth,
+					email,
+					password
+				);
+
+			if (userCredential.user) {
+				navigate("/");
+				toast.success("Now logged in");
+			}
+		} catch (error) {
+			toast.error("Bad User Credentials");
+		}
 	};
 
 	return (
@@ -27,7 +58,7 @@ function SignIn() {
 					</p>
 				</header>
 				<main>
-					<form>
+					<form onSubmit={onSubmit}>
 						<input
 							type='email'
 							className='emailInput'

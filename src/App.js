@@ -10,6 +10,8 @@ import Offers from "./pages/Offers";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 	return (
@@ -30,7 +32,7 @@ function App() {
 					/>
 					<Route
 						path='/profile'
-						element={<SignIn />}
+						element={<Profile />}
 					/>
 					<Route
 						path='/sign-in'
@@ -43,6 +45,7 @@ function App() {
 				</Routes>
 				<Navbar />
 			</Router>
+			<ToastContainer />
 		</>
 	);
 }

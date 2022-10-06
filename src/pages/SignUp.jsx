@@ -13,6 +13,7 @@ import {
 	setDoc,
 	serverTimestamp,
 } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 function SignUp() {
 	// States
@@ -64,8 +65,11 @@ function SignUp() {
 			); //Adding an item to the db with the uid and formDataCopy as the payload
 
 			navigate("/");
+			toast.success("Now signed up!");
 		} catch (error) {
-			console.log(error);
+			toast.error(
+				"Oops, something went wrong with registration..."
+			);
 		}
 	};
 
@@ -118,14 +122,6 @@ function SignUp() {
 								}
 							/>
 						</div>
-						{/* Forgot Password link */}
-						<Link
-							to='/forgot-password'
-							className='
-							forgotPasswordLink'
-						>
-							Forgot Password?
-						</Link>
 						{/* Sign up Label and Button */}
 						<div className='signUpBar'>
 							<p className='signUpText'>
@@ -144,7 +140,7 @@ function SignUp() {
 					{/* Google OAuth */}
 
 					<Link
-						to='/sign-up'
+						to='/sign-in'
 						className='registerLink'
 					>
 						Already Registered? Sign In
