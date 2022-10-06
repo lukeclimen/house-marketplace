@@ -672,7 +672,7 @@ button {
   width: 100%;
 }
 .profileNameActive {
-  background-color: rgba(44, 44, 44, 0.1);
+  background-color: rgba(44, 44, 44, 0.05);
 }
 
 .profileEmail,
@@ -682,11 +682,11 @@ button {
   font-weight: 500;
 }
 .profileEmailActive {
-  background-color: rgba(44, 44, 44, 0.1);
+  background-color: rgba(44, 44, 44, 0.05);
 }
 
 .profileAddressActive {
-  background-color: rgba(44, 44, 44, 0.1);
+  background-color: rgba(44, 44, 44, 0.05);
 }
 
 .createListing {
