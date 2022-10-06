@@ -4,6 +4,7 @@ import {
 	Route,
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import PrivateRoute from "./components/PrivateRoute";
 import Explore from "./pages/Explore";
 import ForgotPassword from "./pages/ForgotPassword";
 import Offers from "./pages/Offers";
@@ -30,10 +31,16 @@ function App() {
 						path='/offers'
 						element={<Offers />}
 					/>
+					{/* Implementing a private route for the profile component */}
 					<Route
 						path='/profile'
-						element={<Profile />}
-					/>
+						element={<PrivateRoute />}
+					>
+						<Route
+							path='/profile'
+							element={<Profile />}
+						/>
+					</Route>
 					<Route
 						path='/sign-in'
 						element={<SignIn />}
