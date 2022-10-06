@@ -14,6 +14,7 @@ import {
 	serverTimestamp,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
+import OAuth from "../components/OAuth";
 
 function SignUp() {
 	// States
@@ -137,7 +138,7 @@ function SignUp() {
 						</div>
 					</form>
 
-					{/* Google OAuth */}
+					<OAuth />
 
 					<Link
 						to='/sign-in'

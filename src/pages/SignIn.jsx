@@ -7,6 +7,7 @@ import {
 	signInWithEmailAndPassword,
 } from "firebase/auth";
 import { toast } from "react-toastify";
+import OAuth from "../components/OAuth";
 
 function SignIn() {
 	// States
@@ -113,7 +114,7 @@ function SignIn() {
 						</div>
 					</form>
 
-					{/* Google OAuth */}
+					<OAuth />
 
 					<Link
 						to='/sign-up'
